@@ -1,5 +1,6 @@
 package id.co.iak.quizapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import id.co.iak.quizapp.question.Question01Activity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                startActivity(new Intent());
-                Toast.makeText(MainActivity.this, "Click to continue!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Ready!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), Question01Activity.class));
             }
         });
     }
