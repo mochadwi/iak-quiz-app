@@ -5,4 +5,6 @@
     <string name="str_indicator_question">Indicator Question</string>
     <string name="str_submit">Submit</string>
     <string name="str_welcome">Welcome to Qu-iak</string>
+    <string name="main_placeholder_name">E.g: John Doe</string>
+    <string name="main_placeholder_email">E.g: web@mail.com</string>
 </resources>
