@@ -1,15 +1,23 @@
 package id.co.iak.quizapp.model;
 
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by mochadwi on 4/26/17.
  */
 
 public class QuestionModel {
-    private String question, answer;
+    private String question, explanation, rightAnswer;
+    private List<String> answer = new ArrayList<>();
     private int point;
 
-    public QuestionModel(String question, String answer, int point) {
+    public QuestionModel(String question, String explanation, String rightAnswer, List<String> answer, int point) {
         this.question = question;
+        this.explanation = explanation;
+        this.rightAnswer = rightAnswer;
         this.answer = answer;
         this.point = point;
     }
@@ -22,11 +30,27 @@ public class QuestionModel {
         this.question = question;
     }
 
-    public String getAnswer() {
+    public String getExplanation() {
+        return explanation;
+    }
+
+    public void setExplanation(String explanation) {
+        this.explanation = explanation;
+    }
+
+    public String getRightAnswer() {
+        return rightAnswer;
+    }
+
+    public void setRightAnswer(String rightAnswer) {
+        this.rightAnswer = rightAnswer;
+    }
+
+    public List<String> getAnswer() {
         return answer;
     }
 
-    public void setAnswer(String answer) {
+    public void setAnswer(List<String> answer) {
         this.answer = answer;
     }
 
@@ -36,5 +60,10 @@ public class QuestionModel {
 
     public void setPoint(int point) {
         this.point = point;
+    }
+
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
     }
 }
