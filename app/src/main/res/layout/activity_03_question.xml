@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="right"
-            android:text="1/5"
+            android:text="3/5"
             android:textSize="24sp" />
 
     </LinearLayout>
@@ -80,7 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
-                android:text="@string/str_question"
+                android:text="@string/question_txt"
                 android:textSize="@dimen/size_medium_margin" />
 
             <RadioButton
@@ -106,8 +106,9 @@
     </ScrollView>
 
     <Button
+        android:id="@+id/btn_next"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="@string/str_submit" />
+        android:text="@string/question_btn_next" />
 </RelativeLayout>
