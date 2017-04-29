@@ -40,12 +40,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 UserModel user = new UserModel(name, email);
-                Toast.makeText(getApplicationContext(), "Ready!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Ready!", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(MainActivity.this, Question01Activity.class);
-//                Intent i = new Intent(getApplicationContext(), ResultActivity.class);
                 i.putExtra("biodata", user.toString());
                 startActivity(i);
-                finish();
             }
         });
     }

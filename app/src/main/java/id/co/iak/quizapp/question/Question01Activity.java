@@ -9,12 +9,13 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import id.co.iak.quizapp.MainActivity;
 import id.co.iak.quizapp.R;
 import id.co.iak.quizapp.model.QuestionModel;
 import id.co.iak.quizapp.model.UserModel;
@@ -36,7 +37,6 @@ public class Question01Activity extends AppCompatActivity {
     RadioButton rb04;
 
     // Data
-    private String rightAnswer = "";
     private List<String> answer = new ArrayList<>();
 
     @Override
@@ -45,17 +45,21 @@ public class Question01Activity extends AppCompatActivity {
         setContentView(R.layout.activity_01_question);
         ButterKnife.bind(this);
 
-        answer.add("\"Final Fantasy XIII\"");
+        answer.add("\"Final Fantasy XIII\""); // Right Answer
         answer.add("\"Final Fantasy XII\"");
         answer.add("\"Final Fantasy VII: Crisis Core\"");
         answer.add("\"Final Fantasy\"");
         final QuestionModel question = new QuestionModel(
                 "Almost every installment of \"Final Fantasy\"" +
-                "began with the melody called \"Prelude\", " +
-                "and we were always rewarded with \"Victory Fanfare\" after a battle. \n\n" +
-                "Which title is the only game that does not include those staple tunes?",
+                        "began with the melody called \"Prelude\", " +
+                        "and we were always rewarded with \"Victory Fanfare\" after a battle. \n\n" +
+                        "Which title is the only game that does not include those staple tunes?",
                 "", // Explanation
-                rightAnswer, answer, 20);
+                "\"Final Fantasy XIII\"", answer, 0);
+
+        // Get previous intent
+        final Intent prevI = getIntent();
+        final UserModel user = new Gson().fromJson(prevI.getStringExtra("biodata"), UserModel.class);
 
         txtQuestion.setText(question.getQuestion());
         rb01.setText(question.getAnswer().get(0));
@@ -65,8 +69,19 @@ public class Question01Activity extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Question02", Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(Question01Activity.this, Question02Activity.class);
+                if (rb01.isChecked()) {
+                    question.setPoint(20);
+                    Toast.makeText(Question01Activity.this, "Correct!", Toast.LENGTH_SHORT).show();
+                } else {
+                    question.setPoint(0);
+                    Toast.makeText(Question01Activity.this, "Incorrect!", Toast.LENGTH_SHORT).show();
+                }
+
+                Toast.makeText(Question01Activity.this, user.getName(), Toast.LENGTH_SHORT).show();
+
+//                Intent i = new Intent(Question01Activity.this, Question02Activity.class);
+                Intent i = new Intent(Question01Activity.this, ResultActivity.class);
+                i.putExtra("biodata", prevI.getStringExtra("biodata"));
                 i.putExtra("question01", question.toString());
                 startActivity(i);
             }
