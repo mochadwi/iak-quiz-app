@@ -23,6 +23,8 @@ import id.co.iak.quizapp.model.UserModel;
 public class Question01Activity extends AppCompatActivity {
 
     // Views
+    @BindView(R.id.txt_score_val)
+    TextView txtQuestionScore;
     @BindView(R.id.txt_question)
     TextView txtQuestion;
     @BindView(R.id.btn_next)
@@ -55,12 +57,13 @@ public class Question01Activity extends AppCompatActivity {
                         "and we were always rewarded with \"Victory Fanfare\" after a battle. \n\n" +
                         "Which title is the only game that does not include those staple tunes?",
                 "", // Explanation
-                "\"Final Fantasy XIII\"", answer, 0);
+                "\"Final Fantasy XIII\"", answer, 20);
 
         // Get previous intent
-        final Intent prevI = getIntent();
-        final UserModel user = new Gson().fromJson(prevI.getStringExtra("biodata"), UserModel.class);
+        final UserModel user = new Gson().fromJson(
+                this.getIntent().getStringExtra("biodata"), UserModel.class);
 
+        txtQuestionScore.setText(String.valueOf(question.getPoint()));
         txtQuestion.setText(question.getQuestion());
         rb01.setText(question.getAnswer().get(0));
         rb02.setText(question.getAnswer().get(1));
@@ -70,18 +73,15 @@ public class Question01Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (rb01.isChecked()) {
-                    question.setPoint(20);
+                    user.setUserScores(question.getPoint());
                     Toast.makeText(Question01Activity.this, "Correct!", Toast.LENGTH_SHORT).show();
                 } else {
-                    question.setPoint(0);
+                    user.setUserScores(0);
                     Toast.makeText(Question01Activity.this, "Incorrect!", Toast.LENGTH_SHORT).show();
                 }
 
-                Toast.makeText(Question01Activity.this, user.getName(), Toast.LENGTH_SHORT).show();
-
-//                Intent i = new Intent(Question01Activity.this, Question02Activity.class);
-                Intent i = new Intent(Question01Activity.this, ResultActivity.class);
-                i.putExtra("biodata", prevI.getStringExtra("biodata"));
+                Intent i = new Intent(Question01Activity.this, Question02Activity.class);
+                i.putExtra("biodata", user.toString());
                 i.putExtra("question01", question.toString());
                 startActivity(i);
             }

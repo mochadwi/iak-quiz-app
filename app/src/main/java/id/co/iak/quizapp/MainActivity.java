@@ -12,7 +12,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.co.iak.quizapp.model.UserModel;
 import id.co.iak.quizapp.question.Question01Activity;
-import id.co.iak.quizapp.question.ResultActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,13 +32,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        name = edtName.getText().toString();
-        email = edtEmail.getText().toString();
-
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UserModel user = new UserModel(name, email);
+                name = edtName.getText().toString();
+                email = edtEmail.getText().toString();
+                UserModel user = new UserModel(name, email, 0);
                 Toast.makeText(MainActivity.this, "Ready!", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(MainActivity.this, Question01Activity.class);
                 i.putExtra("biodata", user.toString());

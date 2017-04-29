@@ -8,10 +8,12 @@ import com.google.gson.Gson;
 
 public class UserModel {
     private String name, email;
+    private int userScores;
 
-    public UserModel(String name, String email) {
+    public UserModel(String name, String email, int userScores) {
         this.name = name;
         this.email = email;
+        this.userScores = userScores;
     }
 
     public String getName() {
@@ -28,6 +30,14 @@ public class UserModel {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getUserScores() {
+        return userScores;
+    }
+
+    public void setUserScores(int userScores) {
+        this.userScores += userScores;
     }
 
     @Override

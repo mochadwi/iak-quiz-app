@@ -8,6 +8,9 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.co.iak.quizapp.R;
@@ -21,14 +24,18 @@ import id.co.iak.quizapp.model.UserModel;
 public class ResultActivity extends AppCompatActivity {
 
     // Views
-    @BindView(R.id.txt_name_val)
-    TextView txtName;
+    @BindView(R.id.txt_indicator_question_val)
+    TextView txtQuestionVal;
     @BindView(R.id.txt_score_val)
-    TextView txtScore;
+    TextView txtScoreVal;
+    @BindView(R.id.txt_name_val)
+    TextView txtNameVal;
 
     // Data
-    private String name;
-    private int scores;
+    private List<QuestionModel> question = new ArrayList<>();
+    private int questionAnswered = 0;
+    private int overallScores = 0;
+    private String name = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,13 +46,22 @@ public class ResultActivity extends AppCompatActivity {
         Intent i = getIntent();
         final UserModel user = new Gson().fromJson(
                 i.getStringExtra("biodata"), UserModel.class);
-        final QuestionModel question = new Gson().fromJson(
-                i.getStringExtra("question01"), QuestionModel.class);
+
+        for (int j = 1; j <= 4; j++) {
+            final QuestionModel q = new Gson().fromJson(
+                    i.getStringExtra("question0" + j), QuestionModel.class);
+            question.add(q);
+
+            if (question.get(j - 1).getPoint() > 0) {
+                questionAnswered++;
+            }
+        }
 
         name = user.getName();
-        scores = question.getPoint();
+        overallScores = question.get(0).getPoint();
 
-        txtName.setText("Congratulations, " + name);
-        txtScore.setText("You scored " + String.valueOf(scores) + " points.");
+        txtQuestionVal.setText("Question answered correctly: " + questionAnswered + " / 5");
+        txtScoreVal.setText("You scored " + String.valueOf(overallScores) + " points.");
+        txtNameVal.setText("Congratulations, " + name);
     }
 }
