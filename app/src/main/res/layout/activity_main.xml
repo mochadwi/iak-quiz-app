@@ -30,6 +30,12 @@
             android:layout_below="@id/edt_name"
             android:hint="@string/main_placeholder_email"
             android:inputType="textEmailAddress" />
+
+        <CheckBox
+            android:id="@+id/cb_eula"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Are you sure to send this data to us?" />
     </LinearLayout>
 
     <Button

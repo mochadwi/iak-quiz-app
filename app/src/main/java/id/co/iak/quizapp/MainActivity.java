@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     TextView edtName;
     @BindView(R.id.edt_email)
     TextView edtEmail;
+    @BindView(R.id.cb_eula)
+    CheckBox cbEula;
 
     // Data
     private String name, email;
@@ -35,13 +38,19 @@ public class MainActivity extends AppCompatActivity {
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                name = edtName.getText().toString();
-                email = edtEmail.getText().toString();
-                UserModel user = new UserModel(name, email, 0);
-                Toast.makeText(MainActivity.this, "Ready!", Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(MainActivity.this, Question01Activity.class);
-                i.putExtra("biodata", user.toString());
-                startActivity(i);
+                if (cbEula.isChecked()) {
+                    name = edtName.getText().toString();
+                    email = edtEmail.getText().toString();
+                    UserModel user = new UserModel(name, email, 0);
+                    Toast.makeText(MainActivity.this, "Ready!", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(MainActivity.this, Question01Activity.class);
+                    i.putExtra("biodata", user.toString());
+                    startActivity(i);
+                    finish();
+                } else {
+                    Toast.makeText(MainActivity.this, "Please ensure your submission!",
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
