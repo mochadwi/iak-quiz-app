@@ -27,7 +27,7 @@ public class Question03Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 //                QuestionModel question = new QuestionModel("", );
-                Toast.makeText(getApplicationContext(), "Question03", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Question04", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(Question03Activity.this, Question04Activity.class);
                 i.putExtra("question03", "");
                 startActivity(i);

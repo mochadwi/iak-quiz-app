@@ -57,7 +57,7 @@ public class Question01Activity extends AppCompatActivity {
                         "and we were always rewarded with \"Victory Fanfare\" after a battle. \n\n" +
                         "Which title is the only game that does not include those staple tunes?",
                 "", // Explanation
-                "\"Final Fantasy XIII\"", answer, 20);
+                "\"Final Fantasy XIII\"", answer, 10);
 
         // Get previous intent
         final UserModel user = new Gson().fromJson(
@@ -82,8 +82,9 @@ public class Question01Activity extends AppCompatActivity {
 
                 Intent i = new Intent(Question01Activity.this, Question02Activity.class);
                 i.putExtra("biodata", user.toString());
-                i.putExtra("question01", question.toString());
+                i.putExtra("question", question.toString());
                 startActivity(i);
+                finish();
             }
         });
     }

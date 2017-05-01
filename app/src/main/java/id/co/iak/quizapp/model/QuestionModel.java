@@ -66,4 +66,21 @@ public class QuestionModel {
     public String toString() {
         return new Gson().toJson(this);
     }
+
+    public static class QuestionListModel {
+        private List<QuestionModel> question_list;
+
+        public List<QuestionModel> getQuestion_list() {
+            return question_list;
+        }
+
+        public void setQuestion_list(List<QuestionModel> question_list) {
+            this.question_list = question_list;
+        }
+
+        @Override
+        public String toString() {
+            return new Gson().toJson(this);
+        }
+    }
 }
