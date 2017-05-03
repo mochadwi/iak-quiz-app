@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -30,9 +32,10 @@ public class ResultActivity extends AppCompatActivity {
 	TextView txtScoreVal;
 	@BindView(R.id.txt_name_val)
 	TextView txtNameVal;
+	@BindView(R.id.btn_next)
+	Button btnNext;
 
 	// Data
-	private List<QuestionModel> question = new ArrayList<>();
 	private int questionAnswered = 0;
 	private int overallScores = 0;
 	private String name = "";
@@ -49,27 +52,26 @@ public class ResultActivity extends AppCompatActivity {
 		final QuestionModel.QuestionListModel quests = new Gson().fromJson(
 				getExtra("questions"), QuestionModel.QuestionListModel.class);
 
-		for (int i = 0; i < 5; i++) {
-			final QuestionModel q = new QuestionModel(
-					getQuests(quests, i).getQuestion(),
-					getQuests(quests, i).getExplanation(),
-					getQuests(quests, i).getRightAnswer(),
-					getQuests(quests, i).getAnswer(),
-					getQuests(quests, i).getPoint()
-			);
-
-			if (q.getPoint() > 0) {
-				questionAnswered++;
-				overallScores += q.getPoint();
-			}
-		}
-
 		name = user.getName();
+		questionAnswered = user.getQuestionAnswered();
+		overallScores = user.getUserScores();
 
 		txtQuestionVal.setText("Question answered correctly: " + questionAnswered +
 				"/" + getQuestSize(quests));
 		txtScoreVal.setText("You scored " + String.valueOf(overallScores) + " points.");
 		txtNameVal.setText("Congratulations, " + name);
+
+
+		btnNext.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(ResultActivity.this, AnswerActivity.class);
+				i.putExtra("biodata", user.toString());
+				i.putExtra("questions", quests.toString());
+				startActivity(i);
+				finish();
+			}
+		});
 	}
 
 	/**
