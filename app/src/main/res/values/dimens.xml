@@ -5,4 +5,5 @@
     <dimen name="size_small_margin">8dp</dimen>
     <dimen name="size_medium_margin">26dp</dimen>
     <dimen name="font_size_normal">18sp</dimen>
+    <dimen name="ic_size_large">48dp</dimen>
 </resources>

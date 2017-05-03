@@ -25,8 +25,8 @@
 
             <ImageView
                 android:id="@+id/img_result"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/ic_size_large"
+                android:layout_height="@dimen/ic_size_large"
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/size_small_margin"
                 android:layout_marginTop="@dimen/size_small_margin"
