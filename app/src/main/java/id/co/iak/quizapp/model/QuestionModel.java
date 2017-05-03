@@ -14,6 +14,9 @@ public class QuestionModel {
     private List<String> answer = new ArrayList<>();
     private int point;
 
+    public QuestionModel() {
+    }
+
     public QuestionModel(String question, String explanation, String rightAnswer, List<String> answer, int point) {
         this.question = question;
         this.explanation = explanation;
