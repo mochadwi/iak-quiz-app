@@ -3,14 +3,19 @@ package id.co.iak.quizapp.question;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Optional;
 import id.co.iak.quizapp.R;
 import id.co.iak.quizapp.model.QuestionModel;
 import id.co.iak.quizapp.model.UserModel;
@@ -22,14 +27,8 @@ import id.co.iak.quizapp.model.UserModel;
 public class AnswerActivity extends AppCompatActivity {
 
 	// Views
-	@BindView(R.id.txt_quest)
-	TextView txtQuest;
-	@BindView(R.id.img_result)
-	ImageView imgResult;
-	@BindView(R.id.txt_answer)
-	TextView txtAnswer;
-	@BindView(R.id.txt_explanation)
-	TextView txtExplanation;
+	@BindView(R.id.rv_explanations)
+	RecyclerView rv;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,14 +40,9 @@ public class AnswerActivity extends AppCompatActivity {
 		final QuestionModel.QuestionListModel quests = new Gson().fromJson(
 				getExtra("questions"), QuestionModel.QuestionListModel.class);
 
-		if (getQuests(quests, 0).isUserCorrect()) {
-			Glide.with(this).load(R.drawable.ic_check_circle_black_48dp).into(imgResult);
-		} else {
-			Glide.with(this).load(R.drawable.ic_highlight_off_black_48dp).into(imgResult);
-		}
-		txtQuest.setText("1. " + getQuests(quests, 0).getQuestion());
-		txtAnswer.setText("The correct answer was: " + getQuests(quests, 0).getRightAnswer());
-		txtExplanation.setText(getQuests(quests, 0).getExplanation());
+		FastItemAdapter fAdapter = new FastItemAdapter();
+		rv.setAdapter(fAdapter);
+		fAdapter.add(new QuestionModel("testQ", "testE", "testRA", new ArrayList<String>(), 20));
 	}
 
 	/**
