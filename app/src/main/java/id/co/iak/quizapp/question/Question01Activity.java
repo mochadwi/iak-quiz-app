@@ -38,9 +38,6 @@ public class Question01Activity extends AppCompatActivity {
 	@BindView(R.id.rb_04)
 	RadioButton rb04;
 
-	// Data
-	private List<String> answer = new ArrayList<>();
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,12 +46,21 @@ public class Question01Activity extends AppCompatActivity {
 
 		// Get previous intent
 		final UserModel user = new Gson().fromJson(
-				this.getIntent().getStringExtra("biodata"), UserModel.class);
-		final QuestionModel question = new QuestionModel();
+				getExtra("biodata"), UserModel.class);
+		final QuestionModel.QuestionListModel questions = new Gson().fromJson(
+				getExtra("questions"), QuestionModel.QuestionListModel.class
+		);
+		final QuestionModel question = new QuestionModel(
+				getQuests(questions, 0).getQuestion(),
+				getQuests(questions, 0).getExplanation(),
+				getQuests(questions, 0).getRightAnswer(),
+				getQuests(questions, 0).getAnswer(),
+				getQuests(questions, 0).getPoint()
+		);
 
 		txtQuestionScore.setText(String.valueOf(question.getPoint()));
 		txtQuestion.setText(question.getQuestion());
-		rb01.setText(question.getAnswer().get(0));
+		rb01.setText(question.getAnswer().get(0)); // Right Answer
 		rb02.setText(question.getAnswer().get(1));
 		rb03.setText(question.getAnswer().get(2));
 		rb04.setText(question.getAnswer().get(3));
@@ -71,10 +77,31 @@ public class Question01Activity extends AppCompatActivity {
 
 				Intent i = new Intent(Question01Activity.this, Question02Activity.class);
 				i.putExtra("biodata", user.toString());
-				i.putExtra("question", question.toString());
+				i.putExtra("questions", questions.toString());
 				startActivity(i);
 				finish();
 			}
 		});
+	}
+
+	/**
+	 * Retrieved String extra from previous intent
+	 *
+	 * @param key as key-pair values from previous intent
+	 * @return
+	 */
+	private String getExtra(String key) {
+		return this.getIntent().getStringExtra(key);
+	}
+
+	/**
+	 * Retrieve prepared questions from previous intent
+	 *
+	 * @param questions
+	 * @param position
+	 * @return
+	 */
+	private QuestionModel getQuests(QuestionModel.QuestionListModel questions, int position) {
+		return questions.getQuestion_list().get(position);
 	}
 }

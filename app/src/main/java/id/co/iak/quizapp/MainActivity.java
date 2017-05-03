@@ -43,8 +43,6 @@ public class MainActivity extends AppCompatActivity {
 		btnContinue.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				// Prepare Question Model
-				prepareQuestion();
 				name = edtName.getText().toString();
 				email = edtEmail.getText().toString();
 				if (cbEula.isChecked() && !name.isEmpty() && !email.isEmpty()) {
@@ -52,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
 					Toast.makeText(MainActivity.this, "Ready!", Toast.LENGTH_SHORT).show();
 					Intent i = new Intent(MainActivity.this, Question01Activity.class);
 					i.putExtra("biodata", user.toString());
+					// Prepare all questions here
+					i.putExtra("questions", prepareQuestion().toString());
 					startActivity(i);
 					finish();
 				} else {
@@ -62,13 +62,14 @@ public class MainActivity extends AppCompatActivity {
 		});
 	}
 
-	private void prepareQuestion() {
-		final List<String> answers = new ArrayList<>();
+	private QuestionModel.QuestionListModel prepareQuestion() {
+		// Question 01
+		List<String> answers = new ArrayList<>();
 		answers.add("\"Final Fantasy XIII\""); // Right Answer
 		answers.add("\"Final Fantasy XII\"");
 		answers.add("\"Final Fantasy VII: Crisis Core\"");
 		answers.add("\"Final Fantasy\"");
-		final QuestionModel question = new QuestionModel(
+		QuestionModel question = new QuestionModel(
 				"Almost every installment of \"Final Fantasy\"" +
 						"began with the melody called \"Prelude\", " +
 						"and we were always rewarded with \"Victory Fanfare\" after a battle. \n\n" +
@@ -76,5 +77,19 @@ public class MainActivity extends AppCompatActivity {
 				"", // Explanation
 				"\"Final Fantasy XIII\"", answers, 20);
 		questions.add(question);
+
+		// Question 02
+		answers = new ArrayList<>();
+		answers.add("Aerith");
+		answers.add("Fang");
+		answers.add("Yuna");
+		answers.add("Garnet");
+		question = new QuestionModel(
+				"Who does not belong in this group?",
+				"", // Explanation
+				"\"Fang\"", answers, 20);
+		questions.add(question);
+		
+		return new QuestionModel.QuestionListModel(questions);
 	}
 }

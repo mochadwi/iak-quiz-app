@@ -73,6 +73,10 @@ public class QuestionModel {
     public static class QuestionListModel {
         private List<QuestionModel> question_list;
 
+        public QuestionListModel(List<QuestionModel> question_list) {
+            this.question_list = question_list;
+        }
+
         public List<QuestionModel> getQuestion_list() {
             return question_list;
         }

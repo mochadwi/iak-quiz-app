@@ -22,75 +22,86 @@ import id.co.iak.quizapp.model.UserModel;
 
 public class Question02Activity extends AppCompatActivity {
 
-    // Views
-    @BindView(R.id.txt_score_val)
-    TextView txtQuestionScore;
-    @BindView(R.id.txt_question)
-    TextView txtQuestion;
-    @BindView(R.id.btn_next)
-    Button btnNext;
-    @BindView(R.id.rb_01)
-    RadioButton rb01;
-    @BindView(R.id.rb_02)
-    RadioButton rb02;
-    @BindView(R.id.rb_03)
-    RadioButton rb03;
-    @BindView(R.id.rb_04)
-    RadioButton rb04;
+	// Views
+	@BindView(R.id.txt_score_val)
+	TextView txtQuestionScore;
+	@BindView(R.id.txt_question)
+	TextView txtQuestion;
+	@BindView(R.id.btn_next)
+	Button btnNext;
+	@BindView(R.id.rb_01)
+	RadioButton rb01;
+	@BindView(R.id.rb_02)
+	RadioButton rb02;
+	@BindView(R.id.rb_03)
+	RadioButton rb03;
+	@BindView(R.id.rb_04)
+	RadioButton rb04;
 
-    // Data
-    private List<String> answer = new ArrayList<>();
-    private List<QuestionModel> list = new ArrayList<>();
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_02_question);
+		ButterKnife.bind(this);
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_01_question);
-        ButterKnife.bind(this);
+		// Get previous intent
+		final UserModel user = new Gson().fromJson(
+				getExtra("biodata"), UserModel.class);
+		final QuestionModel.QuestionListModel questions = new Gson().fromJson(
+				getExtra("questions"), QuestionModel.QuestionListModel.class
+		);
+		final QuestionModel question = new QuestionModel(
+				getQuests(questions, 1).getQuestion(),
+				getQuests(questions, 1).getExplanation(),
+				getQuests(questions, 1).getRightAnswer(),
+				getQuests(questions, 1).getAnswer(),
+				getQuests(questions, 1).getPoint()
+		);
 
-        answer.add("Aerith");
-        answer.add("Fang");
-        answer.add("Yuna");
-        answer.add("Garnet");
-        final QuestionModel question = new QuestionModel(
-                "Who does not belong in this group?",
-                "", // Explanation
-                "\"Fang\"", answer, 20);
-        final QuestionModel question2 = new Gson().fromJson(this.getIntent().getStringExtra("question"),
-                QuestionModel.class);
-        list.add(question2);
-        list.add(question);
+		txtQuestionScore.setText(String.valueOf(question.getPoint()));
+		txtQuestion.setText(question.getQuestion());
+		rb01.setText(question.getAnswer().get(0));
+		rb02.setText(question.getAnswer().get(1)); // Right Answer
+		rb03.setText(question.getAnswer().get(2));
+		rb04.setText(question.getAnswer().get(3));
+		btnNext.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				if (rb02.isChecked()) {
+					user.setUserScores(question.getPoint());
+					Toast.makeText(Question02Activity.this, "Correct!", Toast.LENGTH_SHORT).show();
+				} else {
+					user.setUserScores(0);
+					Toast.makeText(Question02Activity.this, "Incorrect!", Toast.LENGTH_SHORT).show();
+				}
 
-        // Get previous intent
-        final UserModel user = new Gson().fromJson(
-                this.getIntent().getStringExtra("biodata"), UserModel.class);
+				Intent i = new Intent(Question02Activity.this, Question02Activity.class);
+				i.putExtra("biodata", user.toString());
+				i.putExtra("questions", questions.toString());
+				startActivity(i);
+				finish();
+			}
+		});
+	}
 
-        final QuestionModel.QuestionListModel questionList = new QuestionModel.QuestionListModel();
-        questionList.setQuestion_list(list);
+	/**
+	 * Retrieved String extra from previous intent
+	 *
+	 * @param key as key-pair values from previous intent
+	 * @return
+	 */
+	private String getExtra(String key) {
+		return this.getIntent().getStringExtra(key);
+	}
 
-        txtQuestionScore.setText(String.valueOf(question.getPoint()));
-//        txtQuestion.setText(question.getQuestion());
-        txtQuestion.setText(new Gson().toJson(questionList));
-        rb01.setText(question.getAnswer().get(0));
-        rb02.setText(question.getAnswer().get(1));
-        rb03.setText(question.getAnswer().get(2));
-        rb04.setText(question.getAnswer().get(3));
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (rb01.isChecked()) {
-                    user.setUserScores(question.getPoint());
-                    Toast.makeText(Question02Activity.this, "Correct!", Toast.LENGTH_SHORT).show();
-                } else {
-                    user.setUserScores(0);
-                    Toast.makeText(Question02Activity.this, "Incorrect!", Toast.LENGTH_SHORT).show();
-                }
-
-                Intent i = new Intent(Question02Activity.this, Question02Activity.class);
-                i.putExtra("biodata", user.toString());
-                i.putExtra("question", question.toString());
-                startActivity(i);
-            }
-        });
-    }
+	/**
+	 * Retrieve prepared questions from previous intent
+	 *
+	 * @param questions
+	 * @param position
+	 * @return
+	 */
+	private QuestionModel getQuests(QuestionModel.QuestionListModel questions, int position) {
+		return questions.getQuestion_list().get(position);
+	}
 }
