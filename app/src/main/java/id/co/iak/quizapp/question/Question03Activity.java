@@ -75,6 +75,7 @@ public class Question03Activity extends AppCompatActivity {
 							Toast.LENGTH_SHORT).show();
 				} else {
 					if (rb04.isChecked()) {
+						questions.getQuestion_list().get(2).setUserCorrect(true);
 						user.setQuestionAnswered(1);
 						user.setUserScores(question.getPoint());
 						Toast.makeText(Question03Activity.this, "Correct!", Toast.LENGTH_SHORT).show();

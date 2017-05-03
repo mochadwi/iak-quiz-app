@@ -10,84 +10,94 @@ import java.util.List;
  */
 
 public class QuestionModel {
-    private String question, explanation, rightAnswer;
-    private List<String> answer = new ArrayList<>();
-    private int point;
+	private String question, explanation, rightAnswer;
+	private List<String> answer = new ArrayList<>();
+	private int point;
+	private boolean isUserCorrect = false;
 
-    public QuestionModel() {
-    }
+	public QuestionModel() {
+	}
 
-    public QuestionModel(String question, String explanation, String rightAnswer, List<String> answer, int point) {
-        this.question = question;
-        this.explanation = explanation;
-        this.rightAnswer = rightAnswer;
-        this.answer = answer;
-        this.point = point;
-    }
+	public QuestionModel(String question, String explanation, String rightAnswer,
+	                     List<String> answer, int point) {
+		this.question = question;
+		this.explanation = explanation;
+		this.rightAnswer = rightAnswer;
+		this.answer = answer;
+		this.point = point;
+	}
 
-    public String getQuestion() {
-        return question;
-    }
+	public String getQuestion() {
+		return question;
+	}
 
-    public void setQuestion(String question) {
-        this.question = question;
-    }
+	public void setQuestion(String question) {
+		this.question = question;
+	}
 
-    public String getExplanation() {
-        return explanation;
-    }
+	public String getExplanation() {
+		return explanation;
+	}
 
-    public void setExplanation(String explanation) {
-        this.explanation = explanation;
-    }
+	public void setExplanation(String explanation) {
+		this.explanation = explanation;
+	}
 
-    public String getRightAnswer() {
-        return rightAnswer;
-    }
+	public String getRightAnswer() {
+		return rightAnswer;
+	}
 
-    public void setRightAnswer(String rightAnswer) {
-        this.rightAnswer = rightAnswer;
-    }
+	public void setRightAnswer(String rightAnswer) {
+		this.rightAnswer = rightAnswer;
+	}
 
-    public List<String> getAnswer() {
-        return answer;
-    }
+	public List<String> getAnswer() {
+		return answer;
+	}
 
-    public void setAnswer(List<String> answer) {
-        this.answer = answer;
-    }
+	public void setAnswer(List<String> answer) {
+		this.answer = answer;
+	}
 
-    public int getPoint() {
-        return point;
-    }
+	public int getPoint() {
+		return point;
+	}
 
-    public void setPoint(int point) {
-        this.point = point;
-    }
+	public void setPoint(int point) {
+		this.point = point;
+	}
 
-    @Override
-    public String toString() {
-        return new Gson().toJson(this);
-    }
+	public boolean isUserCorrect() {
+		return isUserCorrect;
+	}
 
-    public static class QuestionListModel {
-        private List<QuestionModel> question_list;
+	public void setUserCorrect(boolean userCorrect) {
+		isUserCorrect = userCorrect;
+	}
 
-        public QuestionListModel(List<QuestionModel> question_list) {
-            this.question_list = question_list;
-        }
+	@Override
+	public String toString() {
+		return new Gson().toJson(this);
+	}
 
-        public List<QuestionModel> getQuestion_list() {
-            return question_list;
-        }
+	public static class QuestionListModel {
+		private List<QuestionModel> question_list;
 
-        public void setQuestion_list(List<QuestionModel> question_list) {
-            this.question_list = question_list;
-        }
+		public QuestionListModel(List<QuestionModel> question_list) {
+			this.question_list = question_list;
+		}
 
-        @Override
-        public String toString() {
-            return new Gson().toJson(this);
-        }
-    }
+		public List<QuestionModel> getQuestion_list() {
+			return question_list;
+		}
+
+		public void setQuestion_list(List<QuestionModel> question_list) {
+			this.question_list = question_list;
+		}
+
+		@Override
+		public String toString() {
+			return new Gson().toJson(this);
+		}
+	}
 }

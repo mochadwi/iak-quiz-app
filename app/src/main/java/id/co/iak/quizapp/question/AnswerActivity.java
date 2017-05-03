@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
 import butterknife.BindView;
@@ -40,6 +41,11 @@ public class AnswerActivity extends AppCompatActivity {
 		final QuestionModel.QuestionListModel quests = new Gson().fromJson(
 				getExtra("questions"), QuestionModel.QuestionListModel.class);
 
+		if (getQuests(quests, 0).isUserCorrect()) {
+			Glide.with(this).load(R.drawable.ic_check_circle_black_48dp).into(imgResult);
+		} else {
+			Glide.with(this).load(R.drawable.ic_highlight_off_black_48dp).into(imgResult);
+		}
 		txtQuest.setText("1. " + getQuests(quests, 0).getQuestion());
 		txtAnswer.setText("The correct answer was: " + getQuests(quests, 0).getRightAnswer());
 		txtExplanation.setText(getQuests(quests, 0).getExplanation());
