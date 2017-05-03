@@ -83,7 +83,7 @@ public class Question05Activity extends AppCompatActivity {
 						Toast.makeText(Question05Activity.this, "Incorrect!", Toast.LENGTH_SHORT).show();
 					}
 
-					Intent i = new Intent(Question05Activity.this, MainActivity.class);
+					Intent i = new Intent(Question05Activity.this, ResultActivity.class);
 					i.putExtra("biodata", user.toString());
 					i.putExtra("questions", questions.toString());
 					startActivity(i);
