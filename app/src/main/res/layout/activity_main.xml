@@ -1,47 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_biodata"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical"
     android:padding="@dimen/activity_vertical_margin">
 
     <ImageView
+        android:id="@+id/img_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scaleType="fitXY" />
+        android:scaleType="centerInside"/>
 
-    <LinearLayout
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/edt_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:hint="@string/main_placeholder_name"/>
 
-        <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/edt_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/main_placeholder_name" />
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/edt_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/main_placeholder_email"
+        android:inputType="textEmailAddress"/>
 
-        <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/edt_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/edt_name"
-            android:hint="@string/main_placeholder_email"
-            android:inputType="textEmailAddress" />
-
-        <CheckBox
-            android:id="@+id/cb_eula"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Are you sure to send this data to us?" />
-    </LinearLayout>
+    <CheckBox
+        android:id="@+id/cb_eula"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Are you sure to send this data to us?"/>
 
     <Button
         android:id="@+id/btn_continue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="Let's get started!" />
-</RelativeLayout>
+        android:layout_below="@id/ll_biodata"
+        android:text="Let's get started!"/>
+
+</LinearLayout>

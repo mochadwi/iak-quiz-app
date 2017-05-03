@@ -6,8 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +23,9 @@ import id.co.iak.quizapp.question.Question01Activity;
 
 public class MainActivity extends AppCompatActivity {
 
-	// Views
+	// Views Binding
+	@BindView(R.id.img_main)
+	ImageView imgMain;
 	@BindView(R.id.btn_continue)
 	Button btnContinue;
 	@BindView(R.id.edt_name)
@@ -34,22 +39,33 @@ public class MainActivity extends AppCompatActivity {
 	private String name, email;
 	private List<QuestionModel> questions = new ArrayList<>();
 
+	/**
+	 * Create views
+	 *
+	 * @param savedInstanceState
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		ButterKnife.bind(this);
 
+		Glide.with(this).load(R.drawable.main).into(imgMain);
+
 		btnContinue.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				name = edtName.getText().toString();
 				email = edtEmail.getText().toString();
+
 				if (cbEula.isChecked() && !name.isEmpty() && !email.isEmpty()) {
 					UserModel user = new UserModel(name, email, 0);
+
 					Toast.makeText(MainActivity.this, "Ready!", Toast.LENGTH_SHORT).show();
+
 					Intent i = new Intent(MainActivity.this, Question01Activity.class);
 					i.putExtra("biodata", user.toString());
+
 					// Prepare all questions here
 					i.putExtra("questions", prepareQuestion().toString());
 					startActivity(i);
@@ -62,6 +78,11 @@ public class MainActivity extends AppCompatActivity {
 		});
 	}
 
+	/**
+	 * Prepare list of question
+	 *
+	 * @return new QuestionModel.QuestionListModel
+	 */
 	private QuestionModel.QuestionListModel prepareQuestion() {
 		// Question 01
 		List<String> answers = new ArrayList<>();
