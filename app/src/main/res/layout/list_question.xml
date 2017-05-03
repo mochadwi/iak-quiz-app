@@ -33,11 +33,4 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="This game's music was not composed by Nobuo Uematsu. In Final Fantasy XII we only heard the fanfare after boss fights."/>
-
-    <!--<View-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="1dp"-->
-    <!--android:layout_marginBottom="@dimen/activity_vertical_margin"-->
-    <!--android:layout_marginTop="@dimen/activity_vertical_margin"-->
-    <!--android:background="@color/colorPrimaryDark"/>-->
 </LinearLayout>

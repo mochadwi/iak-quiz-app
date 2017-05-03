@@ -3,7 +3,11 @@ package id.co.iak.quizapp.question;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,12 +16,15 @@ import com.google.gson.Gson;
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Optional;
 import id.co.iak.quizapp.R;
+import id.co.iak.quizapp.model.DividerItemDecoration;
 import id.co.iak.quizapp.model.QuestionModel;
+import id.co.iak.quizapp.model.SampleItem;
 import id.co.iak.quizapp.model.UserModel;
 
 /**
@@ -29,6 +36,8 @@ public class AnswerActivity extends AppCompatActivity {
 	// Views
 	@BindView(R.id.rv_explanations)
 	RecyclerView rv;
+	@BindView(R.id.btn_over)
+	Button btnOver;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,9 +49,22 @@ public class AnswerActivity extends AppCompatActivity {
 		final QuestionModel.QuestionListModel quests = new Gson().fromJson(
 				getExtra("questions"), QuestionModel.QuestionListModel.class);
 
-		FastItemAdapter fAdapter = new FastItemAdapter();
+		rv.setLayoutManager(new LinearLayoutManager(this));
+		rv.setHasFixedSize(true);
+		rv.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
+		rv.setItemAnimator(new DefaultItemAnimator());
+
+		FastItemAdapter<QuestionModel> fAdapter = new FastItemAdapter<>();
 		rv.setAdapter(fAdapter);
-		fAdapter.add(new QuestionModel("testQ", "testE", "testRA", new ArrayList<String>(), 20));
+		fAdapter.add(quests.getQuestion_list());
+		fAdapter.withSavedInstanceState(savedInstanceState);
+
+		btnOver.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
 	}
 
 	/**

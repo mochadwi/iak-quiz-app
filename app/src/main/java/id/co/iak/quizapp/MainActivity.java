@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
 		answers.add("\"Final Fantasy VII: Crisis Core\"");
 		answers.add("\"Final Fantasy\"");
 		QuestionModel question = new QuestionModel(
+				1,
 				// Question
 				"Almost every installment of \"Final Fantasy\"" +
 						"began with the melody called \"Prelude\", " +
@@ -88,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
 		answers.add("Yuna");
 		answers.add("Garnet");
 		question = new QuestionModel(
+				2,
 				// Question
 				"Who does not belong in this group?",
 				// Explanation
@@ -104,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
 		answers.add("Phoenix Tower");
 		answers.add("Zot Tower");  // Right Answer
 		question = new QuestionModel(
+				3,
 				// Question
 				"In \"Final Fantasy IV\", the Magus Sisters are bosses that sit atop what tower?",
 				// Explanation
@@ -120,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
 		answers.add("Zidane");
 		answers.add("Eiko");
 		question = new QuestionModel(
+				4,
 				// Question
 				"In \"Final Fantasy IX\", whose theme song is titled \"Loss of Me\"?",
 				// Explanation
@@ -136,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
 		answers.add("Donkey Kong");
 		answers.add("Gannon");
 		question = new QuestionModel(
+				5,
 				// Question
 				"In \"Final Fantasy I\" (\"Origins\" for the PSX), inside Elfheim's small graveyard," +
 						" there's a tombstone with and epitaph for what Nintendo character?",

@@ -25,19 +25,28 @@ import id.co.iak.quizapp.R;
 public class QuestionModel extends AbstractItem<QuestionModel, QuestionModel.ViewHolder> {
 	private String question, explanation, rightAnswer;
 	private List<String> answer = new ArrayList<>();
-	private int point;
+	private int number, point;
 	private boolean isUserCorrect = false;
 
 	public QuestionModel() {
 	}
 
-	public QuestionModel(String question, String explanation, String rightAnswer,
+	public QuestionModel(int number, String question, String explanation, String rightAnswer,
 	                     List<String> answer, int point) {
+		this.number = number;
 		this.question = question;
 		this.explanation = explanation;
 		this.rightAnswer = rightAnswer;
 		this.answer = answer;
 		this.point = point;
+	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
 	}
 
 	public String getQuestion() {
@@ -108,16 +117,16 @@ public class QuestionModel extends AbstractItem<QuestionModel, QuestionModel.Vie
 	@Override
 	public void bindView(ViewHolder holder, List<Object> payloads) {
 		super.bindView(holder, payloads);
-//		Context ctx = ;
 
 		// Binds our data
 		if (isUserCorrect) {
-//			Glide.with().load(R.drawable.ic_check_circle_black_48dp).into(holder.imgResult);
-//			holder.imgResult.setImageDrawable(ctx.getResources(R.drawable.ic_check_circle_black_48dp));
+			Glide.with(holder.itemView.getContext())
+					.load(R.drawable.ic_check_circle_black_48dp).into(holder.imgResult);
 		} else {
-//			Glide.with(this).load(R.drawable.ic_highlight_off_black_48dp).into(holder.imgResult);
+			Glide.with(holder.itemView.getContext())
+					.load(R.drawable.ic_highlight_off_black_48dp).into(holder.imgResult);
 		}
-		holder.txtQuest.setText("1. " + question);
+		holder.txtQuest.setText(number + ". " + question);
 		holder.txtAnswer.setText("The correct answer was: " + rightAnswer);
 		holder.txtExplanation.setText(explanation);
 	}

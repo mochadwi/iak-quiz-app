@@ -53,6 +53,7 @@ public class Question03Activity extends AppCompatActivity {
 				getExtra("questions"), QuestionModel.QuestionListModel.class
 		);
 		final QuestionModel question = new QuestionModel(
+				3,
 				getQuests(questions, 2).getQuestion(),
 				getQuests(questions, 2).getExplanation(),
 				getQuests(questions, 2).getRightAnswer(),

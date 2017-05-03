@@ -53,6 +53,7 @@ public class Question01Activity extends AppCompatActivity {
 				getExtra("questions"), QuestionModel.QuestionListModel.class
 		);
 		final QuestionModel question = new QuestionModel(
+				1,
 				getQuests(questions, 0).getQuestion(),
 				getQuests(questions, 0).getExplanation(),
 				getQuests(questions, 0).getRightAnswer(),
@@ -75,6 +76,7 @@ public class Question01Activity extends AppCompatActivity {
 							Toast.LENGTH_SHORT).show();
 				} else {
 					if (rb01.isChecked()) {
+						questions.getQuestion_list().get(0).setUserCorrect(true);
 						user.setQuestionAnswered(1);
 						user.setUserScores(question.getPoint());
 						Toast.makeText(Question01Activity.this, "Correct!",
@@ -85,7 +87,7 @@ public class Question01Activity extends AppCompatActivity {
 								Toast.LENGTH_SHORT).show();
 					}
 
-					Intent i = new Intent(Question01Activity.this, Question02Activity.class);
+					Intent i = new Intent(Question01Activity.this, ResultActivity.class);
 					i.putExtra("biodata", user.toString());
 					i.putExtra("questions", questions.toString());
 					startActivity(i);
