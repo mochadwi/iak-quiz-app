@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_vertical_margin">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_explanation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_quest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1. Questions"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:id="@+id/img_result"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/size_small_margin"
+                android:layout_marginTop="@dimen/size_small_margin"
+                android:scaleType="fitXY"/>
+
+            <TextView
+                android:id="@+id/txt_answer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="The correct answer was: Final Fantasy XIII"/>
+
+            <TextView
+                android:id="@+id/txt_explanation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="This game's music was not composed by Nobuo Uematsu. In Final Fantasy XII we only heard the fanfare after boss fights."/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:background="@color/colorPrimaryDark"/>
+    </LinearLayout>
+</ScrollView>
