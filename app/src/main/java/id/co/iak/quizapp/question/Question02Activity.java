@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,10 +26,14 @@ public class Question02Activity extends AppCompatActivity {
 	// Views
 	@BindView(R.id.txt_score_val)
 	TextView txtQuestionScore;
+	@BindView(R.id.txt_indicator_question_val)
+	TextView txtIndicator;
 	@BindView(R.id.txt_question)
 	TextView txtQuestion;
 	@BindView(R.id.btn_next)
 	Button btnNext;
+	@BindView(R.id.rg_answers)
+	RadioGroup rgAnswers;
 	@BindView(R.id.rb_01)
 	RadioButton rb01;
 	@BindView(R.id.rb_02)
@@ -41,7 +46,7 @@ public class Question02Activity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_02_question);
+		setContentView(R.layout.activity_question);
 		ButterKnife.bind(this);
 
 		// Get previous intent
@@ -59,6 +64,7 @@ public class Question02Activity extends AppCompatActivity {
 		);
 
 		txtQuestionScore.setText(String.valueOf(question.getPoint()));
+		txtIndicator.setText(String.valueOf("2/" + getQuestSize(questions)));
 		txtQuestion.setText(question.getQuestion());
 		rb01.setText(question.getAnswer().get(0));
 		rb02.setText(question.getAnswer().get(1)); // Right Answer
@@ -67,19 +73,24 @@ public class Question02Activity extends AppCompatActivity {
 		btnNext.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				if (rb02.isChecked()) {
-					user.setUserScores(question.getPoint());
-					Toast.makeText(Question02Activity.this, "Correct!", Toast.LENGTH_SHORT).show();
+				if (rgAnswers.getCheckedRadioButtonId() == -1) {
+					Toast.makeText(Question02Activity.this, "Please choose an answer!",
+							Toast.LENGTH_SHORT).show();
 				} else {
-					user.setUserScores(0);
-					Toast.makeText(Question02Activity.this, "Incorrect!", Toast.LENGTH_SHORT).show();
-				}
+					if (rb02.isChecked()) {
+						user.setUserScores(question.getPoint());
+						Toast.makeText(Question02Activity.this, "Correct!", Toast.LENGTH_SHORT).show();
+					} else {
+						user.setUserScores(0);
+						Toast.makeText(Question02Activity.this, "Incorrect!", Toast.LENGTH_SHORT).show();
+					}
 
-				Intent i = new Intent(Question02Activity.this, Question02Activity.class);
-				i.putExtra("biodata", user.toString());
-				i.putExtra("questions", questions.toString());
-				startActivity(i);
-				finish();
+					Intent i = new Intent(Question02Activity.this, Question03Activity.class);
+					i.putExtra("biodata", user.toString());
+					i.putExtra("questions", questions.toString());
+					startActivity(i);
+					finish();
+				}
 			}
 		});
 	}
@@ -97,11 +108,21 @@ public class Question02Activity extends AppCompatActivity {
 	/**
 	 * Retrieve prepared questions from previous intent
 	 *
-	 * @param questions
-	 * @param position
+	 * @param q
+	 * @param pos
 	 * @return
 	 */
-	private QuestionModel getQuests(QuestionModel.QuestionListModel questions, int position) {
-		return questions.getQuestion_list().get(position);
+	private QuestionModel getQuests(QuestionModel.QuestionListModel q, int pos) {
+		return q.getQuestion_list().get(pos);
+	}
+
+	/**
+	 * Retrieve size
+	 *
+	 * @param q
+	 * @return
+	 */
+	private int getQuestSize(QuestionModel.QuestionListModel q) {
+		return q.getQuestion_list().size();
 	}
 }

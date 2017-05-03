@@ -70,26 +70,81 @@ public class MainActivity extends AppCompatActivity {
 		answers.add("\"Final Fantasy VII: Crisis Core\"");
 		answers.add("\"Final Fantasy\"");
 		QuestionModel question = new QuestionModel(
+				// Question
 				"Almost every installment of \"Final Fantasy\"" +
 						"began with the melody called \"Prelude\", " +
 						"and we were always rewarded with \"Victory Fanfare\" after a battle. \n\n" +
 						"Which title is the only game that does not include those staple tunes?",
-				"", // Explanation
+				// Explanation
+				"This game's music was not composed by Nobuo Uematsu. In \"Final Fantasy XII\" " +
+						"we only heard the fanfare after boss fights.",
 				"\"Final Fantasy XIII\"", answers, 20);
 		questions.add(question);
 
 		// Question 02
 		answers = new ArrayList<>();
 		answers.add("Aerith");
-		answers.add("Fang");
+		answers.add("Fang"); // Right Answer
 		answers.add("Yuna");
 		answers.add("Garnet");
 		question = new QuestionModel(
+				// Question
 				"Who does not belong in this group?",
-				"", // Explanation
-				"\"Fang\"", answers, 20);
+				// Explanation
+				"Fang uses a spear while the other three use staves or wands. " +
+						"Also, Aerith, Yuna and Garnet rely more on magic and summons " +
+						"while Fang attacks and takes damage.",
+				"Fang", answers, 20);
 		questions.add(question);
-		
+
+		// Question 03
+		answers = new ArrayList<>();
+		answers.add("Remiem Tower");
+		answers.add("Lix Tower");
+		answers.add("Phoenix Tower");
+		answers.add("Zot Tower");  // Right Answer
+		question = new QuestionModel(
+				// Question
+				"In \"Final Fantasy IV\", the Magus Sisters are bosses that sit atop what tower?",
+				// Explanation
+				"In this game the sisters are the minions of Barbariccia. " +
+						"Golbez orders for the sisters to kill Cecil. " +
+						"They recur often in the series, and always use their Delta Attack.",
+				"Zot Tower", answers, 20);
+		questions.add(question);
+
+		// Question 04
+		answers = new ArrayList<>();
+		answers.add("Beatrix");  // Right Answer
+		answers.add("Garnet");
+		answers.add("Zidane");
+		answers.add("Eiko");
+		question = new QuestionModel(
+				// Question
+				"In \"Final Fantasy IX\", whose theme song is titled \"Loss of Me\"?",
+				// Explanation
+				"It is also known in Japan as \"Rose of May\". " +
+						"The song plays every time you fight Beatrix and " +
+						"when she and Steiner are protecting Alexandria.",
+				"Beatrix", answers, 20);
+		questions.add(question);
+
+		// Question 05
+		answers = new ArrayList<>();
+		answers.add("Mario");
+		answers.add("Link"); // Right Answer
+		answers.add("Donkey Kong");
+		answers.add("Gannon");
+		question = new QuestionModel(
+				// Question
+				"In \"Final Fantasy I\" (\"Origins\" for the PSX), inside Elfheim's small graveyard," +
+						" there's a tombstone with and epitaph for what Nintendo character?",
+				// Explanation
+				"It reads \"Here Lies Link\". It is located in a Elf town (as Link resembles an elf). " +
+						"All the other headstones are blank.",
+				"Link", answers, 20);
+		questions.add(question);
+
 		return new QuestionModel.QuestionListModel(questions);
 	}
 }
