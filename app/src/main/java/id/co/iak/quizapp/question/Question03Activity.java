@@ -20,7 +20,7 @@ import id.co.iak.quizapp.model.UserModel;
 
 public class Question03Activity extends AppCompatActivity {
 
-	// Views
+	// Views Binding
 	@BindView(R.id.txt_score_val)
 	TextView txtQuestionScore;
 	@BindView(R.id.txt_indicator_question_val)
@@ -61,6 +61,7 @@ public class Question03Activity extends AppCompatActivity {
 				getQuests(questions, 2).getPoint()
 		);
 
+		// Set data to layout
 		txtQuestionScore.setText(String.valueOf(question.getPoint()));
 		txtIndicator.setText(String.valueOf("3/" + getQuestSize(questions)));
 		txtQuestion.setText(question.getQuestion());
@@ -71,10 +72,12 @@ public class Question03Activity extends AppCompatActivity {
 		btnNext.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
+				// Check for each RadioButton
 				if (rgAnswers.getCheckedRadioButtonId() == -1) {
 					Toast.makeText(Question03Activity.this, "Please choose an answer!",
 							Toast.LENGTH_SHORT).show();
 				} else {
+					// If answered correctly
 					if (rb04.isChecked()) {
 						questions.getQuestion_list().get(2).setUserCorrect(true);
 						user.setQuestionAnswered(1);
@@ -98,8 +101,8 @@ public class Question03Activity extends AppCompatActivity {
 	/**
 	 * Retrieved String extra from previous intent
 	 *
-	 * @param key as key-pair values from previous intent
-	 * @return
+	 * @param key as key-value pair from previous intent
+	 * @return String value of key
 	 */
 	private String getExtra(String key) {
 		return this.getIntent().getStringExtra(key);
@@ -108,19 +111,19 @@ public class Question03Activity extends AppCompatActivity {
 	/**
 	 * Retrieve prepared questions from previous intent
 	 *
-	 * @param q
-	 * @param pos
-	 * @return
+	 * @param q   QuestionModel.QuestionListModel
+	 * @param pos posistion of each question
+	 * @return QuestionModel
 	 */
 	private QuestionModel getQuests(QuestionModel.QuestionListModel q, int pos) {
 		return q.getQuestion_list().get(pos);
 	}
 
 	/**
-	 * Retrieve size
+	 * Retrieve size of Question
 	 *
-	 * @param q
-	 * @return
+	 * @param q QuestionModel.QuestionListModel
+	 * @return int
 	 */
 	private int getQuestSize(QuestionModel.QuestionListModel q) {
 		return q.getQuestion_list().size();

@@ -127,7 +127,7 @@ public class QuestionModel extends AbstractItem<QuestionModel, QuestionModel.Vie
 					.load(R.drawable.ic_highlight_off_black_48dp).into(holder.imgResult);
 		}
 		holder.txtQuest.setText(number + ". " + question);
-		holder.txtAnswer.setText("The correct answer was: " + rightAnswer);
+		holder.txtAnswer.setText(rightAnswer);
 		holder.txtExplanation.setText(explanation);
 	}
 

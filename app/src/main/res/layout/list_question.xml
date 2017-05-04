@@ -22,15 +22,29 @@
         android:layout_marginTop="@dimen/size_small_margin"
         android:scaleType="fitXY"/>
 
-    <TextView
-        android:id="@+id/txt_answer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="The correct answer was: Final Fantasy XIII"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txt_caption_answer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="The correct answer was "/>
+
+        <TextView
+            android:id="@+id/txt_answer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/txt_caption_answer"
+            android:text="Final Fantasy XIII"
+            android:textStyle="bold"/>
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/txt_explanation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="This game's music was not composed by Nobuo Uematsu. In Final Fantasy XII we only heard the fanfare after boss fights."/>
+        android:text="This game's music was not composed by Nobuo Uematsu. In Final Fantasy XII we only heard the fanfare after boss fights."
+        android:textStyle="italic"/>
 </LinearLayout>

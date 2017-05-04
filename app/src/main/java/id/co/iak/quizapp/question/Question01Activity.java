@@ -20,7 +20,7 @@ import id.co.iak.quizapp.model.UserModel;
 
 public class Question01Activity extends AppCompatActivity {
 
-	// Views
+	// Views Binding
 	@BindView(R.id.txt_score_val)
 	TextView txtQuestionScore;
 	@BindView(R.id.txt_indicator_question_val)
@@ -40,6 +40,11 @@ public class Question01Activity extends AppCompatActivity {
 	@BindView(R.id.rb_04)
 	RadioButton rb04;
 
+	/**
+	 * Create layouts
+	 *
+	 * @param savedInstanceState
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -61,6 +66,7 @@ public class Question01Activity extends AppCompatActivity {
 				getQuests(questions, 0).getPoint()
 		);
 
+		// Set data to layout
 		txtQuestionScore.setText(String.valueOf(question.getPoint()));
 		txtIndicator.setText(String.valueOf("1/" + getQuestSize(questions)));
 		txtQuestion.setText(question.getQuestion());
@@ -71,10 +77,13 @@ public class Question01Activity extends AppCompatActivity {
 		btnNext.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
+
+				// Check for each RadioButton
 				if (rgAnswers.getCheckedRadioButtonId() == -1) {
 					Toast.makeText(Question01Activity.this, "Please choose an answer!",
 							Toast.LENGTH_SHORT).show();
 				} else {
+					// If answered correctly
 					if (rb01.isChecked()) {
 						questions.getQuestion_list().get(0).setUserCorrect(true);
 						user.setQuestionAnswered(1);
@@ -87,7 +96,7 @@ public class Question01Activity extends AppCompatActivity {
 								Toast.LENGTH_SHORT).show();
 					}
 
-					Intent i = new Intent(Question01Activity.this, ResultActivity.class);
+					Intent i = new Intent(Question01Activity.this, Question02Activity.class);
 					i.putExtra("biodata", user.toString());
 					i.putExtra("questions", questions.toString());
 					startActivity(i);
@@ -100,8 +109,8 @@ public class Question01Activity extends AppCompatActivity {
 	/**
 	 * Retrieved String extra from previous intent
 	 *
-	 * @param key as key-pair values from previous intent
-	 * @return
+	 * @param key as key-value pair from previous intent
+	 * @return String value of key
 	 */
 	private String getExtra(String key) {
 		return this.getIntent().getStringExtra(key);
@@ -110,19 +119,19 @@ public class Question01Activity extends AppCompatActivity {
 	/**
 	 * Retrieve prepared questions from previous intent
 	 *
-	 * @param q
-	 * @param pos
-	 * @return
+	 * @param q   QuestionModel.QuestionListModel
+	 * @param pos posistion of each question
+	 * @return QuestionModel
 	 */
 	private QuestionModel getQuests(QuestionModel.QuestionListModel q, int pos) {
 		return q.getQuestion_list().get(pos);
 	}
 
 	/**
-	 * Retrieve size
+	 * Retrieve size of Question
 	 *
-	 * @param q
-	 * @return
+	 * @param q QuestionModel.QuestionListModel
+	 * @return int
 	 */
 	private int getQuestSize(QuestionModel.QuestionListModel q) {
 		return q.getQuestion_list().size();
