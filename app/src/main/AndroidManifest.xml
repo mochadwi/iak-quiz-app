@@ -8,20 +8,40 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".question.Question01Activity"></activity>
-        <activity android:name=".question.Question02Activity"></activity>
-        <activity android:name=".question.Question03Activity"></activity>
-        <activity android:name=".question.Question04Activity"></activity>
-        <activity android:name=".question.Question05Activity"></activity>
-        <activity android:name=".question.ResultActivity"></activity>
-        <activity android:name=".question.AnswerActivity"></activity>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".question.Question01Activity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".question.Question02Activity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".question.Question03Activity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".question.Question04Activity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".question.Question05Activity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".question.ResultActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".question.AnswerActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
