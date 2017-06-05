@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "id.co.iak.quizapp"
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -35,6 +35,13 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.5.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     compile 'com.github.bumptech.glide:glide:3.7.0'
+
+    // Azure
+    compile 'com.google.guava:guava:20.0'
+    compile 'com.squareup.okhttp:okhttp:2.5.0'
+    compile 'com.microsoft.azure:azure-mobile-android:3.3.0@aar'
+    compile 'com.microsoft.azure:azure-notifications-handler:1.0.1@jar'
+
     // start FastAdapter
     compile('com.mikepenz:fastadapter:2.5.2@aar') {
         transitive = true

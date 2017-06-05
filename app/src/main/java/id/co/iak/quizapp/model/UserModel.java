@@ -1,19 +1,41 @@
 package id.co.iak.quizapp.model;
 
 import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by mochadwi on 4/28/17.
  */
 
 public class UserModel {
-	private String name, email;
-	private int userScores, questionAnswered;
+	@SerializedName("id")
+	private String id;
 
-	public UserModel(String name, String email, int userScores) {
+	@SerializedName("name")
+	private String name;
+
+	@SerializedName("email")
+	private String email;
+
+	@SerializedName("score")
+	private int userScores;
+
+	private int questionAnswered;
+
+	public UserModel(String id, String name, String email, int userScores, int questionAnswered) {
+		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.userScores = userScores;
+		this.questionAnswered = questionAnswered;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getName() {
