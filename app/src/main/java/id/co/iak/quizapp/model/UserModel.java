@@ -30,12 +30,10 @@ public class UserModel {
 		this.questionAnswered = questionAnswered;
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
+	public UserModel(String name, String email, int userScores) {
+		this.name = name;
+		this.email = email;
+		this.userScores = userScores;
 	}
 
 	public String getName() {

@@ -1,5 +1,6 @@
 package id.co.iak.quizapp.question;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,9 +12,15 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
+import com.microsoft.windowsazure.mobileservices.http.OkHttpClientFactory;
+import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
+import com.squareup.okhttp.OkHttpClient;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +45,17 @@ public class ResultActivity extends AppCompatActivity {
 	TextView txtNameVal;
 	@BindView(R.id.btn_next)
 	Button btnNext;
+
+	// Utility
+	/**
+	 * Mobile Service Client reference
+	 */
+	private MobileServiceClient mAzureClient;
+
+	/**
+	 * Mobile Service Table used to access data
+	 */
+	private MobileServiceTable<UserModel> mToDoTable;
 
 	// Data
 	private int questionAnswered = 0;
@@ -66,6 +84,37 @@ public class ResultActivity extends AppCompatActivity {
 				"/" + getQuestSize(quests));
 		txtScoreVal.setText("You scored " + String.valueOf(overallScores) + " points.");
 		txtNameVal.setText("Congratulations, " + name);
+
+		try {
+			// Create the Mobile Service Client instance, using the provided
+
+			// Mobile Service URL and key
+			mAzureClient = new MobileServiceClient(
+					"https://ffquizapp.azurewebsites.net",
+					this);
+
+			// Extend timeout from default of 10s to 20s
+			mAzureClient.setAndroidHttpClientFactory(new OkHttpClientFactory() {
+				@Override
+				public OkHttpClient createOkHttpClient() {
+					OkHttpClient client = new OkHttpClient();
+					client.setReadTimeout(20, TimeUnit.SECONDS);
+					client.setWriteTimeout(20, TimeUnit.SECONDS);
+					return client;
+				}
+			});
+
+			// Get the Mobile Service Table instance to use
+
+			mToDoTable = mAzureClient.getTable(UserModel.class);
+
+			mToDoTable.insert(user);
+
+		} catch (MalformedURLException e) {
+			createAndShowDialog(new Exception("There was an error creating the Mobile Service. Verify the URL"), "Error");
+		} catch (Exception e){
+			createAndShowDialog(e, "Error");
+		}
 
 		btnNext.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -108,5 +157,37 @@ public class ResultActivity extends AppCompatActivity {
 	 */
 	private int getQuestSize(QuestionModel.QuestionListModel q) {
 		return q.getQuestion_list().size();
+	}
+
+	/**
+	 * Creates a dialog and shows it
+	 *
+	 * @param exception
+	 *            The exception to show in the dialog
+	 * @param title
+	 *            The dialog title
+	 */
+	private void createAndShowDialog(Exception exception, String title) {
+		Throwable ex = exception;
+		if(exception.getCause() != null){
+			ex = exception.getCause();
+		}
+		createAndShowDialog(ex.getMessage(), title);
+	}
+
+	/**
+	 * Creates a dialog and shows it
+	 *
+	 * @param message
+	 *            The dialog message
+	 * @param title
+	 *            The dialog title
+	 */
+	private void createAndShowDialog(final String message, final String title) {
+		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+		builder.setMessage(message);
+		builder.setTitle(title);
+		builder.create().show();
 	}
 }
